@@ -1,3 +1,6 @@
 [submodule "barebones"]
 	path = barebones
 	url = /Applications/mamp/htdocs/barebones-wp/wordpress/wp-content/themes/barebones
+[submodule "wp-content/plugins/woocommerce"]
+	path = wp-content/plugins/woocommerce
+	url = https://github.com/woothemes/woocommerce.git
