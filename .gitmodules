@@ -4,3 +4,6 @@
 [submodule "wp-content/plugins/woocommerce"]
 	path = wp-content/plugins/woocommerce
 	url = https://github.com/woothemes/woocommerce.git
+[submodule "wp-content/plugins/wp-e-commerce"]
+	path = wp-content/plugins/wp-e-commerce
+	url = https://github.com/wp-e-commerce/WP-e-Commerce.git
