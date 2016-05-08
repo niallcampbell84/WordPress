@@ -2870,6 +2870,7 @@
 				self.targetWindow( self.iframe[0].contentWindow );
 
 				self.targetWindow().document.open();
+				self.targetWindow().history.pushState( {}, '', self.origin() );
 				self.targetWindow().document.write( response );
 				self.targetWindow().document.close();
 			});
