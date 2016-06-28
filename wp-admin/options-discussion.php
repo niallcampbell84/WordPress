@@ -78,7 +78,7 @@ include( ABSPATH . 'wp-admin/admin-header.php' );
 <input name="thread_comments" type="checkbox" id="thread_comments" value="1" <?php checked('1', get_option('thread_comments')); ?> />
 <?php
 /**
- * Filter the maximum depth of threaded/nested comments.
+ * Filters the maximum depth of threaded/nested comments.
  *
  * @since 2.7.0.
  *
@@ -195,13 +195,13 @@ $show_avatars = get_option( 'show_avatars' );
 
 <?php
 $ratings = array(
-	/* translators: Content suitability rating: http://bit.ly/89QxZA */
+	/* translators: Content suitability rating: https://en.wikipedia.org/wiki/Motion_Picture_Association_of_America_film_rating_system */
 	'G' => __('G &#8212; Suitable for all audiences'),
-	/* translators: Content suitability rating: http://bit.ly/89QxZA */
+	/* translators: Content suitability rating: https://en.wikipedia.org/wiki/Motion_Picture_Association_of_America_film_rating_system */
 	'PG' => __('PG &#8212; Possibly offensive, usually for audiences 13 and above'),
-	/* translators: Content suitability rating: http://bit.ly/89QxZA */
+	/* translators: Content suitability rating: https://en.wikipedia.org/wiki/Motion_Picture_Association_of_America_film_rating_system */
 	'R' => __('R &#8212; Intended for adult audiences above 17'),
-	/* translators: Content suitability rating: http://bit.ly/89QxZA */
+	/* translators: Content suitability rating: https://en.wikipedia.org/wiki/Motion_Picture_Association_of_America_film_rating_system */
 	'X' => __('X &#8212; Even more mature than above')
 );
 foreach ($ratings as $key => $rating) :
@@ -229,7 +229,7 @@ $avatar_defaults = array(
 	'retro' => __('Retro (Generated)')
 );
 /**
- * Filter the default avatars.
+ * Filters the default avatars.
  *
  * Avatars are stored in key/value pairs, where the key is option value,
  * and the name is the displayed avatar name.
@@ -256,7 +256,7 @@ foreach ( $avatar_defaults as $default_key => $default_name ) {
 remove_filter( 'pre_option_show_avatars', '__return_true', 100 );
 
 /**
- * Filter the HTML output of the default avatar list.
+ * Filters the HTML output of the default avatar list.
  *
  * @since 2.6.0
  *

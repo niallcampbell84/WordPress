@@ -32,7 +32,7 @@ function the_permalink( $post = 0 ) {
  *
  * Conditionally adds a trailing slash if the permalink structure has a trailing
  * slash, strips the trailing slash if not. The string is passed through the
- * 'user_trailingslashit' filter. Will remove trailing slash from string, if
+ * {@see 'user_trailingslashit'} filter. Will remove trailing slash from string, if
  * site is not set to have them.
  *
  * @since 2.2.0
@@ -172,7 +172,7 @@ function get_permalink( $post = 0, $leavename = false ) {
 				usort($cats, '_usort_terms_by_ID'); // order by ID
 
 				/**
-				 * Filter the category that gets used in the %category% permalink token.
+				 * Filters the category that gets used in the %category% permalink token.
 				 *
 				 * @since 3.5.0
 				 *
@@ -191,7 +191,9 @@ function get_permalink( $post = 0, $leavename = false ) {
 			// having to assign it explicitly
 			if ( empty($category) ) {
 				$default_category = get_term( get_option( 'default_category' ), 'category' );
-				$category = is_wp_error( $default_category ) ? '' : $default_category->slug;
+				if ( $default_category && ! is_wp_error( $default_category ) ) {
+					$category = $default_category->slug;
+				}
 			}
 		}
 
@@ -316,7 +318,7 @@ function get_page_link( $post = false, $leavename = false, $sample = false ) {
 		$link = _get_page_link( $post, $leavename, $sample );
 
 	/**
-	 * Filter the permalink for a page.
+	 * Filters the permalink for a page.
 	 *
 	 * @since 1.5.0
 	 *
@@ -364,7 +366,7 @@ function _get_page_link( $post = false, $leavename = false, $sample = false ) {
 	}
 
 	/**
-	 * Filter the permalink for a non-page_on_front page.
+	 * Filters the permalink for a non-page_on_front page.
 	 *
 	 * @since 2.1.0
 	 *
@@ -535,7 +537,7 @@ function get_day_link($year, $month, $day) {
 	}
 
 	/**
-	 * Filter the day archive permalink.
+	 * Filters the day archive permalink.
 	 *
 	 * @since 1.5.0
 	 *
@@ -816,7 +818,7 @@ function get_term_feed_link( $term_id, $taxonomy = 'category', $feed = '' ) {
 
 	if ( 'category' == $taxonomy ) {
 		/**
-		 * Filter the category feed link.
+		 * Filters the category feed link.
 		 *
 		 * @since 1.5.1
 		 *
@@ -826,7 +828,7 @@ function get_term_feed_link( $term_id, $taxonomy = 'category', $feed = '' ) {
 		$link = apply_filters( 'category_feed_link', $link, $feed );
 	} elseif ( 'post_tag' == $taxonomy ) {
 		/**
-		 * Filter the post tag feed link.
+		 * Filters the post tag feed link.
 		 *
 		 * @since 2.3.0
 		 *
@@ -836,7 +838,7 @@ function get_term_feed_link( $term_id, $taxonomy = 'category', $feed = '' ) {
 		$link = apply_filters( 'tag_feed_link', $link, $feed );
 	} else {
 		/**
-		 * Filter the feed link for a taxonomy other than 'category' or 'post_tag'.
+		 * Filters the feed link for a taxonomy other than 'category' or 'post_tag'.
 		 *
 		 * @since 3.0.0
 		 *
@@ -874,7 +876,7 @@ function get_tag_feed_link( $tag_id, $feed = '' ) {
  */
 function get_edit_tag_link( $tag_id, $taxonomy = 'post_tag' ) {
 	/**
-	 * Filter the edit link for a tag (or term in another taxonomy).
+	 * Filters the edit link for a tag (or term in another taxonomy).
 	 *
 	 * @since 2.7.0
 	 *
@@ -1210,7 +1212,7 @@ function get_post_type_archive_feed_link( $post_type, $feed = '' ) {
 /**
  * Retrieves the URL used for the post preview.
  *
- * Get the preview post URL. Allows additional query args to be appended.
+ * Allows additional query args to be appended.
  *
  * @since 4.4.0
  *
@@ -1219,7 +1221,7 @@ function get_post_type_archive_feed_link( $post_type, $feed = '' ) {
  *                                  Default empty array.
  * @param string      $preview_link Optional. Base preview link to be used if it should differ from the
  *                                  post permalink. Default empty.
- * @return string URL used for the post preview.
+ * @return string|null URL used for the post preview, or null if the post does not exist.
  */
 function get_preview_post_link( $post = null, $query_args = array(), $preview_link = '' ) {
 	$post = get_post( $post );
@@ -1397,7 +1399,7 @@ function get_edit_comment_link( $comment_id = 0 ) {
 	$location = admin_url('comment.php?action=editcomment&amp;c=') . $comment->comment_ID;
 
 	/**
-	 * Filter the comment edit link.
+	 * Filters the comment edit link.
 	 *
 	 * @since 2.3.0
 	 *
@@ -1457,7 +1459,7 @@ function get_edit_bookmark_link( $link = 0 ) {
 	$location = admin_url('link.php?action=edit&amp;link_id=') . $link->link_id;
 
 	/**
-	 * Filter the bookmark edit link.
+	 * Filters the bookmark edit link.
 	 *
 	 * @since 2.7.0
 	 *
@@ -1525,7 +1527,7 @@ function get_edit_user_link( $user_id = null ) {
 		$link = add_query_arg( 'user_id', $user->ID, self_admin_url( 'user-edit.php' ) );
 
 	/**
-	 * Filter the user edit link.
+	 * Filters the user edit link.
 	 *
 	 * @since 3.5.0
 	 *
@@ -2213,7 +2215,7 @@ function get_next_posts_link( $label = null, $max_page = 0 ) {
 
 	if ( !is_single() && ( $nextpage <= $max_page ) ) {
 		/**
-		 * Filter the anchor tag attributes for the next posts page link.
+		 * Filters the anchor tag attributes for the next posts page link.
 		 *
 		 * @since 2.7.0
 		 *
@@ -2296,7 +2298,7 @@ function get_previous_posts_link( $label = null ) {
 
 	if ( !is_single() && $paged > 1 ) {
 		/**
-		 * Filter the anchor tag attributes for the previous posts page link.
+		 * Filters the anchor tag attributes for the previous posts page link.
 		 *
 		 * @since 2.7.0
 		 *
@@ -2730,7 +2732,7 @@ function get_previous_comments_link( $label = '' ) {
 		$label = __('&laquo; Older Comments');
 
 	/**
-	 * Filter the anchor tag attributes for the previous comments page link.
+	 * Filters the anchor tag attributes for the previous comments page link.
 	 *
 	 * @since 2.7.0
 	 *
@@ -3539,35 +3541,80 @@ function get_edit_profile_url( $user_id = 0, $scheme = 'admin' ) {
 }
 
 /**
+ * Returns the canonical URL for a post.
+ *
+ * When the post is the same as the current requested page the function will handle the
+ * pagination arguments too.
+ *
+ * @since 4.6.0
+ *
+ * @param int|WP_Post $post Optional. Post ID or object. Default is global `$post`.
+ * @return string|false The canonical URL, or false if the post does not exist or has not
+ *                      been published yet.
+ */
+function wp_get_canonical_url( $post = null ) {
+	$post = get_post( $post );
+
+	if ( ! $post ) {
+		return false;
+	}
+
+	if ( 'publish' !== $post->post_status ) {
+		return false;
+	}
+
+	$canonical_url = get_permalink( $post );
+
+	// If a canonical is being generated for the current page, make sure it has pagination if needed.
+	if ( $post->ID === get_queried_object_id() ) {
+		$page = get_query_var( 'page', 0 );
+		if ( $page >= 2 ) {
+			if ( '' == get_option( 'permalink_structure' ) ) {
+				$canonical_url = add_query_arg( 'page', $page, $canonical_url );
+			} else {
+				$canonical_url = trailingslashit( $canonical_url ) . user_trailingslashit( $page, 'single_paged' );
+			}
+		}
+
+		$cpage = get_query_var( 'cpage', 0 );
+		if ( $cpage ) {
+			$canonical_url = get_comments_pagenum_link( $cpage );
+		}
+	}
+
+	/**
+	 * Filters the canonical URL for a post.
+	 *
+	 * @since 4.6.0
+	 *
+	 * @param string  $string The post's canonical URL.
+	 * @param WP_Post $post   Post object.
+	 */
+	return apply_filters( 'get_canonical_url', $canonical_url, $post );
+}
+
+/**
  * Outputs rel=canonical for singular queries.
  *
  * @since 2.9.0
+ * @since 4.6.0 Adjusted to use `wp_get_canonical_url()`.
  */
 function rel_canonical() {
 	if ( ! is_singular() ) {
 		return;
 	}
 
-	if ( ! $id = get_queried_object_id() ) {
+	$id = get_queried_object_id();
+
+	if ( 0 === $id ) {
 		return;
 	}
 
-	$url = get_permalink( $id );
+	$url = wp_get_canonical_url( $id );
 
-	$page = get_query_var( 'page' );
-	if ( $page >= 2 ) {
-		if ( '' == get_option( 'permalink_structure' ) ) {
-			$url = add_query_arg( 'page', $page, $url );
-		} else {
-			$url = trailingslashit( $url ) . user_trailingslashit( $page, 'single_paged' );
-		}
+	if ( ! empty( $url ) ) {
+		echo '<link rel="canonical" href="' . esc_url( $url ) . '" />' . "\n";
 	}
-
-	$cpage = get_query_var( 'cpage' );
-	if ( $cpage ) {
-		$url = get_comments_pagenum_link( $cpage );
-	}
-	echo '<link rel="canonical" href="' . esc_url( $url ) . "\" />\n";
 }
 
 /**
@@ -3665,7 +3712,7 @@ function wp_shortlink_wp_head() {
 /**
  * Sends a Link: rel=shortlink header if a shortlink is defined for the current page.
  *
- * Attached to the wp action.
+ * Attached to the {@see 'wp'} action.
  *
  * @since 3.0.0
  */
@@ -3900,7 +3947,7 @@ function get_avatar_data( $id_or_email, $args = null ) {
 		$user = get_user_by( 'id', (int) $id_or_email->post_author );
 	} elseif ( $id_or_email instanceof WP_Comment ) {
 		/**
-		 * Filter the list of allowed comment types for retrieving avatars.
+		 * Filters the list of allowed comment types for retrieving avatars.
 		 *
 		 * @since 3.0.0
 		 *

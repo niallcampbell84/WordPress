@@ -10,7 +10,7 @@
  * Retrieve list of category objects.
  *
  * If you change the type to 'link' in the arguments, then the link categories
- * will be returned instead. Also all categories will be updated to be backwards
+ * will be returned instead. Also all categories will be updated to be backward
  * compatible with pre-2.3 plugins and themes.
  *
  * @since 2.1.0
@@ -30,7 +30,7 @@ function get_categories( $args = '' ) {
 	$taxonomy = $args['taxonomy'];
 
 	/**
-	 * Filter the taxonomy used to retrieve terms when calling get_categories().
+	 * Filters the taxonomy used to retrieve terms when calling get_categories().
 	 *
 	 * @since 2.7.0
 	 *
@@ -77,7 +77,7 @@ function get_categories( $args = '' ) {
  * If you look at get_term(), then both types will be passed through several
  * filters and finally sanitized based on the $filter parameter value.
  *
- * The category will converted to maintain backwards compatibility.
+ * The category will converted to maintain backward compatibility.
  *
  * @since 1.5.1
  *
@@ -271,7 +271,7 @@ function get_tags( $args = '' ) {
 	}
 
 	/**
-	 * Filter the array of term objects returned for the 'post_tag' taxonomy.
+	 * Filters the array of term objects returned for the 'post_tag' taxonomy.
 	 *
 	 * @since 2.3.0
 	 *

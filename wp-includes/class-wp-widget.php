@@ -169,7 +169,7 @@ class WP_Widget {
 	 * @access public
 	 *
 	 * @see __construct()
-	 * 
+	 *
 	 * @param string $id_base         Optional Base ID for the widget, lowercase and unique. If left empty,
 	 *                                a portion of the widget's class name will be used Has to be unique.
 	 * @param string $name            Name for the widget displayed on the configuration page.
@@ -353,7 +353,7 @@ class WP_Widget {
 			$instance = $instances[ $this->number ];
 
 			/**
-			 * Filter the settings for a particular widget instance.
+			 * Filters the settings for a particular widget instance.
 			 *
 			 * Returning false will effectively short-circuit display of the widget.
 			 *
@@ -442,7 +442,7 @@ class WP_Widget {
 				}
 
 				/**
-				 * Filter a widget's settings before saving.
+				 * Filters a widget's settings before saving.
 				 *
 				 * Returning false will effectively short-circuit the widget's ability
 				 * to update settings.
@@ -498,7 +498,7 @@ class WP_Widget {
 		}
 
 		/**
-		 * Filter the widget instance's settings before displaying the control form.
+		 * Filters the widget instance's settings before displaying the control form.
 		 *
 		 * Returning false effectively short-circuits display of the control form.
 		 *

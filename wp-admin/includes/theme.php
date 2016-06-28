@@ -172,7 +172,7 @@ function get_theme_update_available( $theme ) {
 		if ( !is_multisite() ) {
 			if ( ! current_user_can('update_themes') ) {
 				/* translators: 1: theme name, 2: theme details URL, 3: accessibility text, 4: version number */
-				$html = sprintf( '<p><strong>' . __( 'There is a new version of %1$s available. <a href="%2$s" class="thickbox" aria-label="%3$s">View version %4$s details</a>.' ) . '</strong></p>',
+				$html = sprintf( '<p><strong>' . __( 'There is a new version of %1$s available. <a href="%2$s" class="thickbox open-plugin-details-modal" aria-label="%3$s">View version %4$s details</a>.' ) . '</strong></p>',
 					$theme_name,
 					esc_url( $details_url ),
 					/* translators: 1: theme name, 2: version number */
@@ -181,7 +181,7 @@ function get_theme_update_available( $theme ) {
 				);
 			} elseif ( empty( $update['package'] ) ) {
 				/* translators: 1: theme name, 2: theme details URL, 3: accessibility text, 4: version number */
-				$html = sprintf( '<p><strong>' . __( 'There is a new version of %1$s available. <a href="%2$s" class="thickbox" aria-label="%3$s">View version %4$s details</a>. <em>Automatic update is unavailable for this theme.</em>' ) . '</strong></p>',
+				$html = sprintf( '<p><strong>' . __( 'There is a new version of %1$s available. <a href="%2$s" class="thickbox open-plugin-details-modal" aria-label="%3$s">View version %4$s details</a>. <em>Automatic update is unavailable for this theme.</em>' ) . '</strong></p>',
 					$theme_name,
 					esc_url( $details_url ),
 					/* translators: 1: theme name, 2: version number */
@@ -190,7 +190,7 @@ function get_theme_update_available( $theme ) {
 				);
 			} else {
 				/* translators: 1: theme name, 2: theme details URL, 3: accessibility text, 4: version number, 5: update URL, 6: accessibility text */
-				$html = sprintf( '<p><strong>' . __( 'There is a new version of %1$s available. <a href="%2$s" class="thickbox" aria-label="%3$s">View version %4$s details</a> or <a href="%5$s" aria-label="%6$s">update now</a>.' ) . '</strong></p>',
+				$html = sprintf( '<p><strong>' . __( 'There is a new version of %1$s available. <a href="%2$s" class="thickbox open-plugin-details-modal" aria-label="%3$s">View version %4$s details</a> or <a href="%5$s" aria-label="%6$s" id="update-theme" data-slug="%7$s">update now</a>.' ) . '</strong></p>',
 					$theme_name,
 					esc_url( $details_url ),
 					/* translators: 1: theme name, 2: version number */
@@ -198,7 +198,8 @@ function get_theme_update_available( $theme ) {
 					$update['new_version'],
 					$update_url,
 					/* translators: %s: theme name */
-					esc_attr( sprintf( __( 'Update %s now' ), $theme_name ) )
+					esc_attr( sprintf( __( 'Update %s now' ), $theme_name ) ),
+					$stylesheet
 				);
 			}
 		}
@@ -311,7 +312,7 @@ function get_theme_feature_list( $api = true ) {
  * Retrieves theme installer pages from the WordPress.org Themes API.
  *
  * It is possible for a theme to override the Themes API result with three
- * filters. Assume this is for themes, which can extend on the Theme Info to
+ * Filterss. Assume this is for themes, which can extend on the Theme Info to
  * offer more choices. This is very powerful and must be used with care, when
  * overriding the filters.
  *
@@ -403,7 +404,7 @@ function themes_api( $action, $args = array() ) {
 	}
 
 	/**
-	 * Filter arguments used to query for installer pages from the WordPress.org Themes API.
+	 * Filters arguments used to query for installer pages from the WordPress.org Themes API.
 	 *
 	 * Important: An object MUST be returned to this filter.
 	 *
@@ -416,7 +417,7 @@ function themes_api( $action, $args = array() ) {
 	$args = apply_filters( 'themes_api_args', $args, $action );
 
 	/**
-	 * Filter whether to override the WordPress.org Themes API.
+	 * Filters whether to override the WordPress.org Themes API.
 	 *
 	 * Passing a non-false value will effectively short-circuit the WordPress.org API request.
 	 *
@@ -462,7 +463,7 @@ function themes_api( $action, $args = array() ) {
 	}
 
 	/**
-	 * Filter the returned WordPress.org Themes API response.
+	 * Filters the returned WordPress.org Themes API response.
 	 *
 	 * @since 2.8.0
 	 *
@@ -488,7 +489,7 @@ function wp_prepare_themes_for_js( $themes = null ) {
 	$current_theme = get_stylesheet();
 
 	/**
-	 * Filter theme data before it is prepared for JavaScript.
+	 * Filters theme data before it is prepared for JavaScript.
 	 *
 	 * Passing a non-empty array will result in wp_prepare_themes_for_js() returning
 	 * early with that value instead.
@@ -574,7 +575,7 @@ function wp_prepare_themes_for_js( $themes = null ) {
 	}
 
 	/**
-	 * Filter the themes prepared for JavaScript, for themes.php.
+	 * Filters the themes prepared for JavaScript, for themes.php.
 	 *
 	 * Could be useful for changing the order, which is by name by default.
 	 *
