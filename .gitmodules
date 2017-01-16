@@ -7,3 +7,6 @@
 [submodule "wp-content/plugins/wp-e-commerce"]
 	path = wp-content/plugins/wp-e-commerce
 	url = https://github.com/wp-e-commerce/WP-e-Commerce.git
+[submodule "wp-content/plugins/woocommerce-prepending-gateway"]
+	path = wp-content/plugins/woocommerce-prepending-gateway
+	url = git@REMOTE_URL:woocommerce-prepending-gateway/.git
