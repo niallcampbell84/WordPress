@@ -62,7 +62,6 @@ class WP_MS_Sites_List_Table extends WP_List_Table {
 	 * Prepares the list of sites for display.
 	 *
 	 * @since 3.1.0
-	 * @since 4.6.0 Converted to use get_sites()
 	 *
 	 * @global string $s
 	 * @global string $mode
@@ -157,6 +156,15 @@ class WP_MS_Sites_List_Table extends WP_List_Table {
 		} else {
 			$args['no_found_rows'] = false;
 		}
+
+		/**
+		 * Filters the arguments for the site query in the sites list table.
+		 *
+		 * @since 4.6.0
+		 *
+		 * @param array $args An array of get_sites() arguments.
+		 */
+		$args = apply_filters( 'ms_sites_list_table_query_args', $args );
 
 		$_sites = get_sites( $args );
 		if ( is_array( $_sites ) ) {
@@ -510,7 +518,7 @@ class WP_MS_Sites_List_Table extends WP_List_Table {
 
 		$actions['edit']	= '<a href="' . esc_url( network_admin_url( 'site-info.php?id=' . $blog['blog_id'] ) ) . '">' . __( 'Edit' ) . '</a>';
 		$actions['backend']	= "<a href='" . esc_url( get_admin_url( $blog['blog_id'] ) ) . "' class='edit'>" . __( 'Dashboard' ) . '</a>';
-		if ( get_current_site()->blog_id != $blog['blog_id'] ) {
+		if ( get_network()->site_id != $blog['blog_id'] ) {
 			if ( $blog['deleted'] == '1' ) {
 				$actions['activate']   = '<a href="' . esc_url( wp_nonce_url( network_admin_url( 'sites.php?action=confirm&amp;action2=activateblog&amp;id=' . $blog['blog_id'] ), 'activateblog_' . $blog['blog_id'] ) ) . '">' . __( 'Activate' ) . '</a>';
 			} else {
